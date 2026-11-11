@@ -1,12 +1,14 @@
 using System; // hantera grundläggande funktioner
 using System.Collections.Generic; // hantera listor
-using System.Linq; // filtrera och sortera listor
+using System.Linq;
+using System.Security; // filtrera och sortera listor
 
 namespace QuizBattle
 {
     public class GameEngine // klassen som styr spelet
     {
-        private List<Player> players = new List<Player>(); // lista som håller alla spelare
+        private List<Player> players = new List<Player>(); // lista som håller alla 
+        public List<Player> Players => players;
         private QuestionManager questionManager; 
         private Random random = new Random(); // skapar en instans av Random för att slumpa frågor
         private int rounds;
@@ -15,6 +17,10 @@ namespace QuizBattle
             questionManager = manager;
         }
 
+public void Play() // startar spelet
+        {
+            StartGame(); 
+        }
         public void StartGame()
         {
             players.Clear();

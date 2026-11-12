@@ -1,10 +1,10 @@
 using System;
 
-// One saved result for one player in one game.
+// Ett sparat resultat för en spelare efter ett spel
 public class HighscoreEntry
 {
-    public string Name { get; set; } = "";
-    public int Score { get; set; }
-    public int CorrectAnswers { get; set; }
-    public DateTime Date { get; set; }
+    public string Name { get; set; } = "";   // spelarens namn
+    public int Score { get; set; }           // totala poäng
+    public int CorrectAnswers { get; set; }  // antal rätta svar
+    public DateTime Date { get; set; }       // datum då spelet spelades
 }

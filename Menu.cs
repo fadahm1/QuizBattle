@@ -1,8 +1,9 @@
 using System;
 
+// Hanterar huvudmenyn
 public class Menu
 {
-    // Shows the menu and returns 1, 2 or 3
+    // Visar menyn och returnerar valet (1, 2 eller 3)
     public int Show()
     {
         Console.WriteLine();
@@ -11,7 +12,7 @@ public class Menu
         return ReadNumber("Val: ", 1, 3);
     }
 
-    // Asks again until the user writes a number between min and max
+    // Frågar igen och igen tills användaren skriver ett tal mellan min och max
     public static int ReadNumber(string text, int min, int max)
     {
         while (true)
@@ -20,11 +21,14 @@ public class Menu
             string input = Console.ReadLine();
             int number;
 
+            // TryParse försöker göra om texten till ett tal utan att krascha
+            // om användaren skriver t.ex. en bokstav
             if (int.TryParse(input, out number) && number >= min && number <= max)
             {
                 return number;
             }
 
+            // Fel inmatning: berätta vad som var fel och fråga igen
             Console.WriteLine("Svara med en siffra mellan " + min + " och " + max + ".");
         }
     }

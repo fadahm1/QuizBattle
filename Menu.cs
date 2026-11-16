@@ -3,12 +3,23 @@ using System;
 // Hanterar huvudmenyn
 public class Menu
 {
-    // Visar menyn och returnerar valet (1, 2 eller 3)
+    // Visar menyn med färger och returnerar valet (1, 2 eller 3)
     public int Show()
     {
         Console.WriteLine();
-        Console.WriteLine("=== Quiz Battle ===");
-        Console.WriteLine("1. Spela  2. Topplista  3. Avsluta");
+        Console.ForegroundColor = ConsoleColor.Cyan;
+        Console.WriteLine("╔════════════════════════════╗");
+        Console.WriteLine("║        QUIZ BATTLE         ║");
+        Console.WriteLine("╚════════════════════════════╝");
+
+        Console.ForegroundColor = ConsoleColor.Green;
+        Console.Write(" 1. Spela");
+        Console.ForegroundColor = ConsoleColor.Yellow;
+        Console.Write("   2. Topplista");
+        Console.ForegroundColor = ConsoleColor.Red;
+        Console.WriteLine("   3. Avsluta");
+        Console.ResetColor();
+
         return ReadNumber("Val: ", 1, 3);
     }
 
@@ -22,14 +33,15 @@ public class Menu
             int number;
 
             // TryParse försöker göra om texten till ett tal utan att krascha
-            // om användaren skriver t.ex. en bokstav
             if (int.TryParse(input, out number) && number >= min && number <= max)
             {
                 return number;
             }
 
-            // Fel inmatning: berätta vad som var fel och fråga igen
+            // Fel inmatning visas i rött så att den syns tydligt
+            Console.ForegroundColor = ConsoleColor.Red;
             Console.WriteLine("Svara med en siffra mellan " + min + " och " + max + ".");
+            Console.ResetColor();
         }
     }
 }

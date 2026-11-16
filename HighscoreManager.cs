@@ -24,7 +24,14 @@ public class HighscoreManager
         {
             // Läser texten i filen och gör om JSON till en lista med objekt
             string json = File.ReadAllText(filePath);
-            return JsonSerializer.Deserialize<List<HighscoreEntry>>(json);
+            List<HighscoreEntry> result = JsonSerializer.Deserialize<List<HighscoreEntry>>(json);
+
+            // Är filen tom får vi null, då returnerar vi en tom lista istället
+            if (result == null)
+            {
+                return new List<HighscoreEntry>();
+            }
+            return result;
         }
         catch
         {
@@ -77,13 +84,15 @@ public class HighscoreManager
             .ToList();
     }
 
-    // Skriver ut topplistan i konsolen
+    // Skriver ut topplistan i konsolen med färger
     public void Display()
     {
         List<HighscoreEntry> top = GetTopTen();
 
         Console.WriteLine();
+        Console.ForegroundColor = ConsoleColor.Yellow;
         Console.WriteLine("=== Topplista ===");
+        Console.ResetColor();
 
         // Om listan är tom finns inga resultat sparade än
         if (top.Count == 0)
@@ -92,12 +101,19 @@ public class HighscoreManager
             return;
         }
 
-        // Skriver ut en rad per resultat med placering, namn, poäng, rätta svar och datum
         for (int i = 0; i < top.Count; i++)
         {
             HighscoreEntry e = top[i];
-            Console.WriteLine((i + 1) + ". " + e.Name + "  " + e.Score + " poäng  "
+
+            // Etta gul, tvåa och trea cyan, resten vita
+            if (i == 0) Console.ForegroundColor = ConsoleColor.Yellow;
+            else if (i < 3) Console.ForegroundColor = ConsoleColor.Cyan;
+            else Console.ForegroundColor = ConsoleColor.White;
+
+            Console.WriteLine((i + 1) + ". " + e.Name.PadRight(10) + e.Score + " poäng  "
                 + e.CorrectAnswers + " rätt  " + e.Date.ToString("yyyy-MM-dd"));
         }
+
+        Console.ResetColor();
     }
 }
